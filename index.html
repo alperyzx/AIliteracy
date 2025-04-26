@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapay Zeka Araçları</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
+
+        /* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
+        /*
+         * What follows is the result of much research on cross-browser styling.
+         * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+         * Kroc Camen, and the H5BP dev community and team.
+         */
+
+        /* ==========================================================================
+           Base styles: opinionated defaults
+           ========================================================================== */
+
+        html {
+          color: #222;
+          font-size: 1em;
+          line-height: 1.4;
+        }
+
+        /*
+         * Remove text-shadow in selection highlight:
+         * https://twitter.com/miketaylr/status/12228805301
+         *
+         * Customize the background color to match your design.
+         */
+
+        ::-moz-selection {
+          background: #b3d4fc;
+          text-shadow: none;
+        }
+
+        ::selection {
+          background: #b3d4fc;
+          text-shadow: none;
+        }
+
+        /*
+         * A better looking default horizontal rule
+         */
+
+        hr {
+          display: block;
+          height: 1px;
+          border: 0;
+          border-top: 1px solid #ccc;
+          margin: 1em 0;
+          padding: 0;
+        }
+
+        /*
+         * Remove the gap between audio, canvas, iframes,
+         * images, videos and the bottom of their containers:
+         * https://github.com/h5bp/html5-boilerplate/issues/440
+         */
+
+        audio,
+        canvas,
+        iframe,
+        img,
+        svg,
+        video {
+          vertical-align: middle;
+        }
+
+        /*
+         * Remove default fieldset styles.
+         */
+
+        fieldset {
+          border: 0;
+          margin: 0;
+          padding: 0;
+        }
+
+        /*
+         * Allow only vertical resizing of textareas.
+         */
+
+        textarea {
+          resize: vertical;
+        }
+
+        /* ==========================================================================
+           Author's custom styles
+           ========================================================================== */
+
+        /* NEW: Styles for the background canvas with floating triangles */
+        #space {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 0; /* behind slides */
+          pointer-events: none;
+        }
+
+        /* Ensure the slide container stays on top */
+        .slide-container {
+          position: relative;
+          z-index: 10; /* raised above canvas */
+        }
+
+        /* ==========================================================================
+           Helper classes
+           ========================================================================== */
+
+        /*
+         * Hide visually and from screen readers
+         */
+
+        .hidden,
+        [hidden] {
+          display: none !important;
+        }
+
+        /*
+         * Hide only visually, but have it available for screen readers:
+         * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+         *
+         * 1. For long content, line feeds are not interpreted as spaces and small width
+         *    causes content to wrap 1 word per line:
+         *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+         */
+
+        .visually-hidden {
+          border: 0;
+          clip: rect(0, 0, 0, 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          white-space: nowrap;
+          width: 1px;
+          /* 1 */
+        }
+
+        /*
+         * Extends the .visually-hidden class to allow the element
+         * to be focusable when navigated to via the keyboard:
+         * https://www.drupal.org/node/897638
+         */
+
+        .visually-hidden.focusable:active,
+        .visually-hidden.focusable:focus {
+          clip: auto;
+          height: auto;
+          margin: 0;
+          overflow: visible;
+          position: static;
+          white-space: inherit;
+          width: auto;
+        }
+
+        /*
+         * Hide visually and from screen readers, but maintain layout
+         */
+
+        .invisible {
+          visibility: hidden;
+        }
+
+        /*
+         * Clearfix: contain floats
+         *
+         * The use of `table` rather than `block` is only necessary if using
+         * `::before` to contain the top-margins of child elements.
+         */
+
+        .clearfix::before,
+        .clearfix::after {
+          content: "";
+          display: table;
+        }
+
+        .clearfix::after {
+          clear: both;
+        }
+
+        /* ==========================================================================
+           EXAMPLE Media Queries for Responsive Design.
+           These examples override the primary ('mobile first') styles.
+           Modify as content requires.
+           ========================================================================== */
+
+        @media only screen and (min-width: 35em) {
+          /* Style adjustments for viewports that meet the condition */
+        }
+
+        @media print,
+          (-webkit-min-device-pixel-ratio: 1.25),
+          (min-resolution: 1.25dppx),
+          (min-resolution: 120dpi) {
+          /* Style adjustments for high resolution devices */
+        }
+
+        /* ==========================================================================
+           Print styles.
+           Inlined to avoid the additional HTTP request:
+           https://www.phpied.com/delay-loading-your-print-css/
+           ========================================================================== */
+
+        @media print {
+          *,
+          *::before,
+          *::after {
+            background: #fff !important;
+            color: #000 !important;
+            /* Black prints faster */
+            box-shadow: none !important;
+            text-shadow: none !important;
+          }
+
+          a,
+          a:visited {
+            text-decoration: underline;
+          }
+
+          a[href]::after {
+            content: " (" attr(href) ")";
+          }
+
+          abbr[title]::after {
+            content: " (" attr(title) ")";
+          }
+
+          /*
+           * Don't show links that are fragment identifiers,
+           * or use the `javascript:` pseudo protocol
+           */
+          a[href^="#"]::after,
+          a[href^="javascript:"]::after {
+            content: "";
+          }
+
+          pre {
+            white-space: pre-wrap !important;
+          }
+
+          pre,
+          blockquote {
+            border: 1px solid #999;
+            page-break-inside: avoid;
+          }
+
+          tr,
+          img {
+            page-break-inside: avoid;
+          }
+
+          p,
+          h2,
+          h3 {
+            orphans: 3;
+            widows: 3;
+          }
+
+          h2,
+          h3 {
+            page-break-after: avoid;
+          }
+        }
+
+        /* Original inline styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            animation: gradient 15s ease infinite;
+            overflow: hidden;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .slide-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 100; /* Increased z-index to be way above canvas */
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .slide.active {
+            display: flex;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+        p {
+            font-size: 1.4em;
+            line-height: 1.5;
+        }
+        @keyframes float {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0); }
+        }
+        .icon {
+            font-size: 5em;
+            margin-bottom: 1em;
+            animation: float 6s ease-in-out infinite;
+        }
+        .source {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: #FFD700;
+        }
+        .source a {
+            color: #FFD700;
+            text-decoration: underline;
+        }
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 5px;
+            background: #fff;
+            transition: width 0.5s;
+        }
+        ul {
+            text-align: left;
+            margin: 0 auto;
+            padding-left: 20px;
+        }
+        .demo-links {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 2em;
+        }
+        .demo-links div {
+            text-align: center;
+        }
+        .demo-links img {
+            width: 150px;
+            height: 150px;
+            margin-top: 1em;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            width: 100%;
+            margin: 2em auto;
+        }
+        .twitter-embed {
+            width: 90%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            overflow: hidden;
+        }
+        /* Make Twitter embeds responsive */
+        @media (min-width: 1200px) {
+            .twitter-embed {
+                width: 45%;
+            }
+        }
+        /* Make Twitter embeds display properly in dark mode */
+        [data-theme="dark"] .twitter-tweet {
+            background: transparent !important;
+        }
+        /* Increase text size for slide13 */
+        #slide13 h2 {
+            font-size: 3em;
+        }
+        #slide13 ul li {
+            font-size: 1.6em;
+        }
+
+        /* NEW: Dark mode / Light mode based on user system preference */
+        @media (prefers-color-scheme: light) {
+            body {
+                background: linear-gradient(45deg, #a2cffe, #d0eaff);
+                color: #000033;
+            }
+            .progress-bar {
+                background: #000033;
+            }
+            .source {
+                color: #000033;
+            }
+            .source a {
+                color: #000033;
+            }
+
+            .content {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                color: #000033;
+            }
+
+            h1 {
+                text-shadow: 2px 2px 4px rgba(0, 0, 51, 0.1);
+                color: #000033;
+                -webkit-text-fill-color: #000033;
+            }
+
+            h2 {
+                text-shadow: 1px 1px 3px rgba(0, 0, 51, 0.1);
+                color: #000033;
+                -webkit-text-fill-color: #000033;
+            }
+
+            p, ul {
+                text-shadow: 0 1px 2px rgba(0, 0, 51, 0.05);
+                color: #000033;
+            }
+
+            .icon {
+                color: #000033;
+                text-shadow: 2px 2px 8px rgba(0, 0, 51, 0.3);
+            }
+
+            .slide a {
+                color: #000033; /* Make links the same color as text in day mode */
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(45deg, #1e3c72, #2a5298);
+                color: #fff;
+            }
+            .content {
+                background: rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                padding: 30px;
+                box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .progress-bar {
+                background: #fff;
+            }
+            h1, h2, p, ul, li, .icon {
+                color: #fff;
+            }
+            h1, h2 {
+                color: #fff;
+                -webkit-text-fill-color: #fff;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .source, .source a, .source * {
+                color: #FFD700 !important; /* Make all text and links in source divs gold */
+            }
+            .icon {
+                text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            }
+            /* Make all links in slides light blue for better readability in dark mode */
+            .slide a {
+                color: #87CEEB !important; /* Light sky blue */
+            }
+        }
+
+        /* MODIFIED: Canvas styling to ensure it stays in background */
+        #space {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10; /* Negative z-index to ensure it's behind everything */
+            pointer-events: none;
+        }
+
+        /* MODIFIED: Night mode switch styles */
+        .theme-switch-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 9999;
+            padding: 10px;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 28px;
+            position: relative;
+            width: 52px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #f4f4f4;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        .slider:before {
+            background-color: #fff;
+            bottom: 4px;
+            content: "";
+            height: 20px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 20px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .theme-switch i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: .4s;
+            font-size: 14px;
+        }
+
+        .theme-switch .fa-sun {
+            right: 6px;
+            color: #f39c12;
+            opacity: 0;
+        }
+
+        .theme-switch .fa-moon {
+            left: 6px;
+            color: #4a90e2;
+            opacity: 1;
+        }
+
+        input:checked + .slider {
+            background-color: #2a5298;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        input:checked ~ .fa-sun {
+            opacity: 1;
+        }
+
+        input:checked ~ .fa-moon {
+            opacity: 0;
+        }
+    </style>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</head>
+<body>
+    <!-- MODIFIED: Theme switch markup with icons -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox">
+            <div class="slider"></div>
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </label>
+    </div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Title Slide -->
+        <div class="slide active" id="slide1">
+            <div class="content">
+                <h1>Yapay Zeka Araçları</h1>
+                <p>Hazırlayan ve Sunan<br>
+                  ALPER Y.</p>
+                <p>Yapay zeka teknolojilerinin temel kavramları, araçları ve gelecek trendleri.</p>
+                <i class="fas fa-robot icon"></i>
+            </div>
+            <div class="source"><a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank" t>IBM - AI Overview</a>, <a href="https://www.sas.com/en_us/insights/analytics/what-is-artificial-intelligence.html" target="_blank" t>SAS - What is AI</a></div>
+        </div>
+        <!-- Slide 2: Introduction to AI -->
+        <div class="slide" id="slide2">
+            <div class="content">
+                <i class="fas fa-brain icon"></i>
+                <h2>Yapay Zeka Nedir?</h2>
+                <p>Yapay Zeka (YZ), insan zekasını taklit eden makinelerin geliştirilmesini kapsayan bir teknoloji alanıdır. Alt alanları arasında Makine Öğrenmesi, Derin Öğrenme ve Doğal Dil İşleme yer alır.</p>
+                <p><strong>Tarihçe:</strong> 1950’lerde Alan Turing’in sorusuyla temellenmiş, <br>1956’daki Dartmouth Konferansı ile resmi bir disiplin haline gelmiştir.</p>
+            </div>
+            <div class="source"><a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank" t>IBM - AI Basics</a>, <a href="https://plato.stanford.edu/entries/artificial-intelligence/" target="_blank" t>Stanford - AI History</a></div>
+        </div>
+        <!-- Slide 3: Machine Learning (Part 1) -->
+        <div class="slide" id="slide3">
+            <div class="content">
+                <i class="fas fa-cogs icon"></i>
+                <h2>Makine Öğrenmesi (Bölüm 1)</h2>
+                <p>Makine Öğrenmesi (ML), algoritmaların veri üzerinden öğrenmesini sağlar. <br>Temel adımlar: Veri Toplama, Veri Temizleme, Model Eğitimi.</p>
+                <p><strong>Örnek:</strong> Spam filtresi, geçmiş verilerden spam mesajları öğrenir.</p>
+            </div>
+            <div class="source"><a href="https://www.ibm.com/think/topics/machine-learning-use-cases" target="_blank" t>IBM - ML Basics</a>
+              </div>
+        </div>
+        <!-- Slide 4: Machine Learning (Part 2) -->
+        <div class="slide" id="slide4">
+            <div class="content">
+                <i class="fas fa-chart-line icon"></i>
+                <h2>Makine Öğrenmesi (Bölüm 2)</h2>
+                <p><strong>Adımlar (Devam):</strong> Doğrulama ve Test, Dağıtım.</p>
+                <p><strong>Uygulama Alanları:</strong> E-ticaret (öneri sistemleri), Görüntü Tanıma,<br> Finans, Otonom Araçlar.</p>
+            </div>
+            <div class="source"><a href="https://www.simplilearn.com/tutorials/machine-learning-tutorial/machine-learning-applications" target="_blank" t>Simplilearn - ML Applications</a>
+              </div>
+        </div>
+        <!-- Slide 5: AI Models -->
+        <div class="slide" id="slide5">
+            <div class="content">
+                <i class="fas fa-project-diagram icon"></i>
+                <h2>YZ Modelleri</h2>
+                <p>YZ modelleri, veri üzerinden öğrenerek tahmin yapar. <br>Yaşam döngüsü: Eğitim, Doğrulama, Test, Dağıtım.</p>
+                <p><strong>Örnek:</strong> Spam filtresi modeli, metin desenlerini öğrenir.</p>
+            </div>
+            <div class="source"><a href="https://www.hpe.com/us/en/what-is/ai-models.html" target="_blank" t>HPE - AI Models</a>
+              </div>
+        </div>
+        <!-- Slide 6: Neural Networks (Part 1) -->
+        <div class="slide" id="slide6">
+            <div class="content">
+                <i class="fas fa-network-wired icon"></i>
+                <h2>Yapay Sinir Ağları (Bölüm 1)</h2>
+                <p>Yapay Sinir Ağları (YSA), insan beyninden esinlenmiştir. <br>Türleri: Çok Katmanlı Algılayıcı, Grafik Sinir Ağı, Yinelenen Sinir Ağı.</p>
+            </div>
+            <div class="source"><a href="http://neuralnetworksanddeeplearning.com/" target="_blank" t>Michael Nielsen - Neural Networks</a>, <a href="https://www.deeplearningbook.org/" target="_blank" t>Deep Learning Book - YSA Types</a></div>
+        </div>
+        <!-- Slide 7: Neural Networks (Part 2) -->
+        <div class="slide" id="slide7">
+            <div class="content">
+                <i class="fas fa-car icon"></i>
+                <h2>Yapay Sinir Ağları (Bölüm 2)</h2>
+                <p><strong>Uygulama Alanları:</strong> Otonom Araçlar, Ses Asistanları, Öneri Sistemleri.</p>
+                <p><strong>Eğitim:</strong> Büyük veri ve GPU’larla geri yayılım kullanılarak yapılır.</p>
+            </div>
+            <div class="source"><a href="https://arxiv.org/html/2112.11561v5" target="_blank" t>Explainable AI for Autonomous Driving, arXiv</a>
+            </div>
+        </div>
+        <!-- Slide 8: Large Language Models -->
+        <div class="slide" id="slide8">
+            <div class="content">
+                <i class="fas fa-language icon"></i>
+                <h2>Büyük Dil Modelleri</h2>
+                <p>Büyük Dil Modelleri (LLM) dönüştürücü mimarisine dayanır,<br>metin üretimi, çeviri gibi görevleri yapar.</p>
+                <p><strong>Uygulamalar:</strong> Sohbet Botları, İçerik Oluşturma, Kod Tamamlama.</p>
+            </div>
+            <div class="source"><a href="https://blogs.nvidia.com/blog/what-are-large-language-models-used-for/" target="_blank" t>NVIDIA - LLM Uses</a>, <a href="https://huggingface.co/docs/transformers/philosophy" target="_blank" t>Hugging Face - Transformers</a></div>
+        </div>
+        <!-- Slide 9: Tokens -->
+        <div class="slide" id="slide9">
+            <div class="content">
+                <i class="fas fa-puzzle-piece icon"></i>
+                <h2>Tokenler</h2>
+                <p>Tokenler, metni işlemek için kullanılan birimlerdir. <br>Türleri: Karakter Tabanlı, Kelime Tabanlı, Alt Kelime.</p>
+                <p><strong>Önem:</strong> Modelin dili anlamasını sağlar.</p>
+            </div>
+            <div class="source"><a href="https://neptune.ai/blog/tokenization-in-nlp" target="_blank" t>Neptune.ai - Tokenization</a>, <a href="https://huggingface.co/docs/tokenizers" target="_blank" t>Hugging Face - Tokens</a></div>
+        </div>
+        <!-- Slide 10: Importance of CPU and GPU -->
+        <div class="slide" id="slide10">
+            <div class="content">
+                <i class="fas fa-microchip icon"></i>
+                <h2>CPU ve GPU’nun Önemi</h2>
+                <p>GPU’lar, paralel hesaplama ile YZ eğitimini hızlandırır. <br>Avantajları: Hız, Derin Öğrenme Desteği.</p>
+            </div>
+            <div class="source"><a href="https://www.ibm.com/think/topics/cpu-vs-gpu-machine-learning" target="_blank" t>IBM - CPU vs GPU</a>, <a href="https://blogs.nvidia.com/blog/why-gpus-are-great-for-ai/" target="_blank" t>NVIDIA - GPU Importance</a></div>
+        </div>
+        <!-- Slide 11: Live Demo Tools -->
+        <div class="slide" id="slide11">
+            <div class="content">
+                <i class="fas fa-tools icon"></i>
+                <h2>Canlı Demo Araçları</h2>
+                <p>Firebase Studio, TensorFlow Playground, Google Teachable Machine, Hugging Face Spaces, RunwayML</p>
+            </div>
+            <div class="source"><a href="https://studio.firebase.google.com/" target="_blank" t>Firebase Studio</a>, <a href="https://teachablemachine.withgoogle.com/" target="_blank" t>Google Teachable Machine</a></div>
+        </div>
+        <!-- Slide 12: AI Trends for 2025 -->
+        <div class="slide" id="slide12">
+            <div class="content">
+                <i class="fas fa-chart-bar icon"></i>
+                <h2>2025 YZ Trendleri</h2>
+                <p>YZ Ajanları, Çoklu Modal Modeller, Sorumlu YZ gibi trendler öne çıkıyor.</p>
+            </div>
+            <div class="source"><a href="https://www.techtarget.com/searchenterpriseai/tip/9-top-AI-and-machine-learning-trends" target="_blank" t>TechTarget - AI Trends</a>, <a href="https://www.forbes.com/councils/forbestechcouncil/2025/02/26/the-next-phase-of-ai-top-trends-to-watch-in-2025/" target="_blank" t>Forbes - 2025 AI</a></div>
+        </div>
+        <!-- Slide 13: Tools for Users -->
+        <div class="slide" id="slide13">
+            <div class="content">
+                <i class="fas fa-tools icon"></i>
+                <h2>Kullanıcılar İçin Araçlar</h2>
+                <ul>
+                    <li><strong>napkin.ai:</strong> Doğal dil ile grafik tasarım sağlar.</li>
+                    <li><strong>Firebase Studio:</strong> Web ve mobil uygulama geliştirmeyi kolaylaştırır.</li>
+                    <li><strong>DeepL:</strong> Derin öğrenme ile yüksek doğruluklu çeviri sunar.</li>
+                    <li><strong>NotebookLM:</strong> Yeni bir öğrenme aracı</li>
+                </ul>
+            </div>
+            <div class="source"><a href="https://napkin.ai/" target="_blank" t>napkin.ai</a>, <a href="https://www.deepl.com/" target="_blank" t>DeepL</a></div>
+        </div>
+        <!-- Slide 14: AI-Generated Videos -->
+        <div class="slide" id="slide14">
+            <div class="content">
+                <h2>Algılar & Gerçeklik</h2>
+                <p> </p>
+                <div class="video-container">
+                    <div class="twitter-embed">
+                        <blockquote class="twitter-tweet" data-media-max-width="560">
+                            <p lang="en" dir="ltr">Can reality be hacked?<br><br>This is %100 AI<br><br>We used AI to create a completely ordinary, unpolished street interview — and it looks more real than ever before. <a href="https://t.co/o90B3LcSbn">pic.twitter.com/o90B3LcSbn</a></p>
+                            &mdash; Pepper Root | Creative AI Studio (@pepperroot_ai) <a href="https://twitter.com/pepperroot_ai/status/1905726350327177395?ref_src=twsrc%5Etfw">March 28, 2025</a>
+                        </blockquote>
+                    </div>
+                    <div class="twitter-embed">
+                        <blockquote class="twitter-tweet" data-media-max-width="560">
+                            <p lang="en" dir="ltr">2. Sentiment analysis<br><br>It can also interpret the contents of a cell to determine sentiment or other feelings. Previously impossible.<br><br>Formula: =AI(&quot;Classify this sentence, as either positive or negative.&quot;, A2) <a href="https://t.co/zmePvIFOCq">pic.twitter.com/zmePvIFOCq</a></p>
+                            &mdash; Paul Couvert (@itsPaulAi) <a href="https://twitter.com/itsPaulAi/status/1911485487996608724?ref_src=twsrc%5Etfw">April 13, 2025</a>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="source">Twitter: @pepperroot_ai, @itsPaulAi</div>
+        </div>
+        <!-- Slide 15: Thank You and Demos -->
+        <div class="slide" id="slide15">
+            <div class="content">
+                <h2>Teşekkürler</h2>
+                <p>YZ’nın temel kavramlarını ve trendlerini ele aldık. Karşınızda 3 demo! </p>
+                <p> .. Sorularınızı bekliyorum .. </p>
+                <div class="demo-links">
+                    <div>
+                        <p><a href="https://studio--scijournal-digest.us-central1.hosted.app/" target="_blank">SciJournal Digest</a></p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://studio--scijournal-digest.us-central1.hosted.app/&size=150x150" alt="QR Code for Demo 1">
+                    </div>
+                    <div>
+                        <p><a href="https://studio--chronolens-olwrx.us-central1.hosted.app/" target="_blank">ChronoLens</a></p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://studio--chronolens-olwrx.us-central1.hosted.app/&size=150x150" alt="QR Code for Demo 2">
+                    </div>
+                    <div>
+                        <p><a href="https://huggingface.co/spaces/tinazone/handspew/" target="_blank">Handspew</a></p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://huggingface.co/spaces/tinazone/handspew/&size=150x150" alt="QR Code for Demo 3">
+                    </div>
+                </div>
+            </div>
+            <div class="source"><a href="https://studio.firebase.google.com/">Firebase Studio</a>, <a href="https://huggingface.co">Hugging Face</a></div>
+        </div>
+        <!-- Slide 16: Final Image -->
+        <div class="slide" id="slide16">
+            <div class="content">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilWek_MjSbQjSXRIqst2FpkkT9xg_zLMpKbuxxawCIPVvH1w-QR3S__OX9a9szHN5-ySu84cRMQNmQTVn3O2RlCfcjJmaR-i_Kwloeus3EThK9yMeh518q8ipAMW8Fn2ZX3-n9VjRB0L6FZQeaOrrM6JXFkpugvHsmlKH0OdylTPbTzQGh4D9SvTOdAY3Z/w661-h661/kapak.jpeg" alt="Motivational Cartoon: A character with a speech bubble saying 'I WISH I STARTED EARLIER,' with arrows labeled REGRET and OPPORTUNITY">
+            </div>
+            <div class="source"><a href="#">FRNKLN MIANO</a></div>
+        </div>
+        <!-- Slide 17: Sources -->
+        <div class="slide" id="slide17">
+            <div class="content">
+                <h2>Kullanılan Kaynaklar</h2>
+                <ul>
+                  <li><strong>Slide 1:</strong> <a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank">IBM - AI Overview</a>, <a href="https://www.sas.com/en_us/insights/analytics/what-is-artificial-intelligence.html" target="_blank">SAS - What is AI</a></li>
+                  <li><strong>Slide 2:</strong> <a href="https://www.ibm.com/think/topics/artificial-intelligence" target="_blank">IBM - AI Basics</a>, <a href="https://plato.stanford.edu/entries/artificial-intelligence/" target="_blank">Stanford - AI History</a></li>
+                  <li><strong>Slide 3:</strong> <a href="https://www.ibm.com/think/topics/machine-learning-use-cases" target="_blank">IBM - ML Basics</a></li>
+                  <li><strong>Slide 4:</strong> <a href="https://www.simplilearn.com/tutorials/machine-learning-tutorial/machine-learning-applications" target="_blank">Simplilearn - ML Applications</a></li>
+                  <li><strong>Slide 5:</strong> <a href="https://www.hpe.com/us/en/what-is/ai-models.html" target="_blank">HPE - AI Models</a></li>
+                  <li><strong>Slide 6:</strong> <a href="http://neuralnetworksanddeeplearning.com/" target="_blank">Michael Nielsen - Neural Networks</a>, <a href="https://www.deeplearningbook.org/" target="_blank">Deep Learning Book - YSA Types</a></li>
+                  <li><strong>Slide 7:</strong> <a href="https://arxiv.org/html/2112.11561v5" target="_blank">Explainable AI for Autonomous Driving, arXiv</a></li>
+                  <li><strong>Slide 8:</strong> <a href="https://blogs.nvidia.com/blog/what-are-large-language-models-used-for/" target="_blank">NVIDIA - LLM Uses</a>, <a href="https://huggingface.co/docs/transformers/philosophy" target="_blank">Hugging Face - Transformers</a></li>
+                  <li><strong>Slide 9:</strong> <a href="https://neptune.ai/blog/tokenization-in-nlp" target="_blank">Neptune.ai - Tokenization</a>, <a href="https://huggingface.co/docs/tokenizers" target="_blank">Hugging Face - Tokens</a></li>
+                  <li><strong>Slide 10:</strong> <a href="https://www.ibm.com/think/topics/cpu-vs-gpu-machine-learning" target="_blank">IBM - CPU vs GPU</a>, <a href="https://blogs.nvidia.com/blog/why-gpus-are-great-for-ai/" target="_blank">NVIDIA - GPU Importance</a></li>
+                  <li><strong>Slide 11:</strong> <a href="https://studio.firebase.google.com/" target="_blank">Firebase Studio</a>, <a href="https://teachablemachine.withgoogle.com/" target="_blank">Google Teachable Machine</a></li>
+                  <li><strong>Slide 12:</strong> <a href="https://www.techtarget.com/searchenterpriseai/tip/9-top-AI-and-machine-learning-trends" target="_blank">TechTarget - AI Trends</a>, <a href="https://www.forbes.com/councils/forbestechcouncil/2025/02/26/the-next-phase-of-ai-top-trends-to-watch-in-2025/" target="_blank">Forbes - 2025 AI</a></li>
+                  <li><strong>Slide 13:</strong> <a href="https://napkin.ai/" target="_blank">napkin.ai</a>, <a href="https://www.deepl.com/" target="_blank">DeepL</a></li>
+                  <li><strong>Firebase Studio Released:</strong> <a href="https://x.com/googledevs/status/1910012625485701243" target="_blank">Project IDX is now part of Firebase Studio 🪄</a></li>
+                  <li><strong>Ethics use cases of AI:</strong> <a href="https://x.com/InternetH0F/status/1911117326528692734" target="_blank">AI lawyer for a 74 years old man</a></li>
+                  <li><strong>This is %100 AI:</strong> <a href="https://x.com/pepperroot_ai/status/1905726350327177395" target="_blank">Can reality be hacked?</a></li>
+                  <li><strong>Google Sheets "=AI" formula:</strong> <a href="https://x.com/itsPaulAi/status/1911485480253731093" target="_blank">You can process data that was impossible before in a spreadsheet.</a></li>
+                  <li><strong>Prompt Engineering whitepaper:</strong> <a href="https://www.kaggle.com/whitepaper-prompt-engineering" target="_blank">Google published a 69-page whitepaper on Prompt Engineering</a></li>
+                  <li><strong>Running large language models locally:</strong> <a href="https://www.tecmint.com/run-deepseek-locally-on-linux/" target="_blank">How to Install #DeepSeek Locally with Ollama LLM in #Ubuntu 24.04</a></li>
+                  <li><strong>Chaos -- meet thy maker ⚔️:</strong> <a href="https://x.com/NotebookLM/status/1902768359046828168" target="_blank">Mindmaps are now available in @NotebookLM</a></li>
+                  <li><strong>Demo 1, SciJournal: </strong> <a href="https://studio--scijournal-digest.us-central1.hosted.app/" target="_blank">10 popüler derginin son makaleleri, SciJournal Digest</a></li>
+                  <li><strong>Demo 2, ChronoLens:</strong> <a href="https://studio--chronolens-olwrx.us-central1.hosted.app/" target="_blank">Uzmanlık alanına göre tarihte bugün servisi</a></li>
+                  <li><strong>Demo 3: Handspew </strong> <a href="https://huggingface.co/spaces/tinazone/handspew/" target="_blank">El işaretleri ile AI kullanımı</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas moved after the slide container -->
+    <canvas id="space"></canvas>
+
+    <div class="progress-bar"></div>
+    <script>
+        // Replace the existing theme switch logic with this updated version
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleSwitch = document.querySelector('#checkbox');
+            const currentTheme = localStorage.getItem('theme');
+
+            // Function to apply theme styles
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    document.body.style.background = 'linear-gradient(45deg, #1e3c72, #2a5298)';
+                    document.body.style.color = '#fff';
+                    document.querySelector('.progress-bar').style.background = '#fff';
+
+                    // Update all text elements to white
+                    document.querySelectorAll('h1, h2, p, ul, li, .icon').forEach(el => {
+                        el.style.color = '#fff';
+                    });
+
+                    // Ensure headings are white in dark mode
+                    document.querySelectorAll('h1, h2').forEach(el => {
+                        el.style.color = '#fff';
+                        el.style['-webkit-text-fill-color'] = '#fff';
+                        el.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.2)';
+                    });
+
+                    // Keep sources gold
+                    document.querySelectorAll('.source, .source a, .source *').forEach(el => {
+                        el.style.color = '#FFD700';
+                    });
+
+                    document.querySelectorAll('.content').forEach(el => {
+                        el.style.background = 'rgba(0, 0, 0, 0.2)';
+                        el.style.backdropFilter = 'blur(10px)';
+                        el.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 0, 0.3)';
+                        el.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                    });
+
+                    // Make slide links light blue in dark mode
+                    document.querySelectorAll('.slide a').forEach(el => {
+                        el.style.color = '#87CEEB';
+                    });
+                } else {
+                    document.body.style.background = 'linear-gradient(45deg, #a2cffe, #d0eaff)';
+                    document.body.style.color = '#000033';
+                    document.querySelector('.progress-bar').style.background = '#000033';
+
+                    // Update all text elements to darker blue
+                    document.querySelectorAll('h1, h2, p, ul, li').forEach(el => {
+                        el.style.color = '#000033';
+                        if (el.tagName === 'H1' || el.tagName === 'H2') {
+                            el.style['-webkit-text-fill-color'] = '#000033';
+                        }
+                    });
+
+                    document.querySelectorAll('.icon').forEach(el => {
+                        el.style.color = '#000033';
+                    });
+
+                    document.querySelectorAll('.source, .source a').forEach(el => {
+                        el.style.color = '#000033';
+                    });
+
+                    document.querySelectorAll('.content').forEach(el => {
+                        el.style.background = 'rgba(255, 255, 255, 0.1)';
+                        el.style.backdropFilter = 'blur(10px)';
+                        el.style.boxShadow = '0 8px 32px 0 rgba(0, 0, 51, 0.15)';
+                        el.style.border = '1px solid rgba(255, 255, 255, 0.18)';
+                        el.style.color = '#000033';
+                    });
+
+                    // Make slide links dark blue in day mode
+                    document.querySelectorAll('.slide a').forEach(el => {
+                        el.style.color = '#000033';
+                    });
+                }
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+
+            // Function to switch theme
+            function switchTheme(e) {
+                const theme = e.target.checked ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+                applyTheme(theme);
+            }
+
+            // Set initial theme
+            if (currentTheme) {
+                toggleSwitch.checked = currentTheme === 'dark';
+                applyTheme(currentTheme);
+            } else {
+                // Check system preference
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                toggleSwitch.checked = systemPrefersDark;
+                applyTheme(systemPrefersDark ? 'dark' : 'light');
+            }
+
+            // Add event listener for theme switching
+            toggleSwitch.addEventListener('change', switchTheme);
+        });
+
+        let currentSlide = 1;
+        const totalSlides = 17; // Updated total slides count
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.querySelector('.progress-bar');
+
+        function updateProgressBar() {
+            const progress = (currentSlide / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function showSlide(index) {
+            slides[currentSlide - 1].classList.remove('active');
+            currentSlide = index;
+            if (currentSlide < 1) currentSlide = totalSlides;
+            if (currentSlide > totalSlides) currentSlide = 1;
+            slides[currentSlide - 1].classList.add('active');
+            updateProgressBar();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
+                slides[currentSlide - 1].classList.remove('active');
+                currentSlide++;
+                slides[currentSlide - 1].classList.add('active');
+                updateProgressBar();
+            } else if (e.key === 'ArrowLeft' && currentSlide > 1) {
+                slides[currentSlide - 1].classList.remove('active');
+                currentSlide--;
+                slides[currentSlide - 1].classList.add('active');
+                updateProgressBar();
+            }
+        });
+
+        // NEW: Mouse click navigation
+        document.addEventListener('mousedown', (e) => {
+            // If clicking on a link or the theme switch, do nothing
+            if (e.target.closest('a') ||
+                e.target.closest('.theme-switch-wrapper') ||
+                e.target.closest('.theme-switch') ||
+                e.target.closest('#checkbox') ||
+                e.target.classList.contains('slider')) return;
+
+            if (e.button === 0) {            // Left-click: Next slide
+                showSlide(currentSlide + 1);
+            } else if (e.button === 2) {      // Right-click: Previous slide
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        // Prevent the default context menu on right-click
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        updateProgressBar();
+    </script>
+
+    <script>
+      (function(){
+        const canvas = document.getElementById('space');
+        const ctx = canvas.getContext('2d');
+        function resize(){
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Create stars with random properties
+        const stars = [];
+        const count = 30;
+
+        // Star constraints
+        const MIN_SIZE = 3;
+        const MAX_SIZE = 30;
+        const GROWTH_RATE = 1.2;
+        const SHRINK_RATE = 0.8;
+        const MAX_SPEED = 1.0;
+        const FADE_RATE = 0.02;
+        const MIN_OPACITY = 0.1;
+
+        for(let i = 0; i < count; i++){
+          const size = Math.random() * 15 + 5;
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: (Math.random() - 0.5) * 0.6,
+            size: size,
+            angle: Math.random() * Math.PI * 2,
+            opacity: 1.0,
+            fading: false,
+            collided: false
+          });
+        }
+
+        // Function to reset a star to a new random position
+        function resetStar(star) {
+          star.x = Math.random() * canvas.width;
+          star.y = Math.random() * canvas.height;
+          star.vx = (Math.random() - 0.5) * 0.6;
+          star.vy = (Math.random() - 0.5) * 0.6;
+          star.size = Math.random() * 15 + 5;
+          star.opacity = 1.0;
+          star.fading = false;
+          star.collided = false;
+        }
+
+        // Draw a star
+        function drawStar(star) {
+          ctx.save();
+          ctx.translate(star.x, star.y);
+          ctx.rotate(star.angle);
+          ctx.beginPath();
+
+          const outerRadius = star.size;
+          const innerRadius = star.size / 2.2; // Adjusted ratio for 8-pointed star
+          const spikes = 7; // Changed from 5 to 8 points
+
+          // Draw a star shape with alternating outer and inner points
+          for (let i = 0; i < spikes * 2; i++) {
+            const radius = i % 2 === 0 ? outerRadius : innerRadius;
+            const angle = (Math.PI / spikes) * i;
+
+            const x = radius * Math.cos(angle);
+            const y = radius * Math.sin(angle);
+
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              ctx.lineTo(x, y);
+            }
+          }
+
+          ctx.closePath();
+          // If a collision just occurred, shine fully; then reset collided flag
+          if(star.collided) {
+            ctx.fillStyle = "rgba(255, 255, 255, 1)";
+            star.collided = false;
+          } else {
+            ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * 0.03})`;
+          }
+          ctx.fill();
+          ctx.restore();
+        }
+
+        function limitSpeed(velocity) {
+          const speed = Math.abs(velocity);
+          if (speed > MAX_SPEED) {
+            return (velocity / speed) * MAX_SPEED;
+          }
+          return velocity;
+        }
+
+        // Update position and handle collisions
+        function update(){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          for(let i = 0; i < stars.length; i++){
+            const s = stars[i];
+
+            // If star is fading, reduce opacity
+            if (s.fading) {
+              s.opacity -= FADE_RATE;
+              if (s.opacity <= MIN_OPACITY) {
+                resetStar(s);
+              }
+            }
+
+            // Apply speed limits
+            s.vx = limitSpeed(s.vx);
+            s.vy = limitSpeed(s.vy);
+
+            s.x += s.vx;
+            s.y += s.vy;
+
+            // Bounce off canvas edges and start fading out
+            if(s.x < s.size || s.x > canvas.width - s.size) {
+              s.vx *= -1;
+              // Small velocity changes to prevent straight bounces
+              s.vy += (Math.random() - 0.5) * 0.15;
+
+              // Ensure star moves away from the edge
+              if(s.x < s.size) {
+                s.x = s.size;
+                if(s.vx < 0) s.vx = -s.vx;
+              } else {
+                s.x = canvas.width - s.size;
+                if(s.vx > 0) s.vx = -s.vx;
+              }
+
+              // Start fading out
+              s.fading = true;
+            }
+
+            if(s.y < s.size || s.y > canvas.height - s.size) {
+              s.vy *= -1;
+              // Small velocity changes to prevent straight bounces
+              s.vx += (Math.random() - 0.5) * 0.15;
+
+              // Ensure star moves away from the edge
+              if(s.y < s.size) {
+                s.y = s.size;
+                if(s.vy < 0) s.vy = -s.vy;
+              } else {
+                s.y = canvas.height - s.size;
+                if(s.vy > 0) s.vy = -s.vy;
+              }
+
+              // Start fading out
+              s.fading = true;
+            }
+
+            // Check collision with other stars
+            for(let j = i + 1; j < stars.length; j++){
+              const s2 = stars[j];
+              const dx = s.x - s2.x;
+              const dy = s.y - s2.y;
+              const dist = Math.hypot(dx, dy);
+              if(dist < (s.size + s2.size) / 2){
+                // Exchange velocities for bounce effect
+                const tempVx = s.vx, tempVy = s.vy;
+                s.vx = s2.vx; s.vy = s2.vy;
+                s2.vx = tempVx; s2.vy = tempVy;
+
+                // Add rotation on collision for visual feedback
+                s.angle += Math.PI / 6;
+                s2.angle -= Math.PI / 6;
+
+                // Decrease size on collision
+                s.size = Math.max(MIN_SIZE, s.size * SHRINK_RATE);
+                s2.size = Math.max(MIN_SIZE, s2.size * SHRINK_RATE);
+
+                // Instant shine: set opacity to 1 and mark as collided
+                s.opacity = 1.0;
+                s2.opacity = 1.0;
+                s.collided = true;
+                s2.collided = true;
+              }
+            }
+            drawStar(s);
+          }
+          requestAnimationFrame(update);
+        }
+        update();
+      })();
+    </script>
+</body>
+</html>
